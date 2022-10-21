@@ -7,7 +7,8 @@ import lombok.Setter;
 import org.joda.time.LocalTime;
 
 import javax.persistence.*;
-;import java.util.List;
+;import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="authors")
@@ -20,9 +21,9 @@ public class Author {
 
     private String name;
 
-    private LocalTime born;
+    private Date born;
 
-    private LocalTime died;
+    private Date died;
 
     @OneToMany(mappedBy = "author")
     private List<AuthorBook> authorBooks;

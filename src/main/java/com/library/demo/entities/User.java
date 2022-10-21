@@ -3,6 +3,7 @@ package com.library.demo.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class User {
 
     private String password;
 
-    private String birth;
+    private Date birth;
 
     private String adress;
 
