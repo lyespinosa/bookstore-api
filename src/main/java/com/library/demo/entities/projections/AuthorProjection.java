@@ -10,5 +10,4 @@ public interface AuthorProjection {
 
     String getDied();
 
-    String getBookName();
 }

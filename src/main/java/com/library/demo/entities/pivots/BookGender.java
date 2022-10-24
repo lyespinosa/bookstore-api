@@ -1,24 +1,26 @@
 package com.library.demo.entities.pivots;
 
-import com.library.demo.entities.Author;
+
 import com.library.demo.entities.Book;
+import com.library.demo.entities.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "authors_books")
-@Getter @Setter
-public class AuthorBook {
+@Table (name = "books_genders")
+@Setter @Getter
+public class BookGender  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Author author;
+    private Book book;
 
     @ManyToOne
-    private Book book;
+    private Gender gender;
+
 }
