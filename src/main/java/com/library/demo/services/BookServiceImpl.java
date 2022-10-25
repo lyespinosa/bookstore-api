@@ -1,5 +1,6 @@
 package com.library.demo.services;
 
+import com.library.demo.controllers.dtos.requests.BookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.entities.projections.BookProjection;
@@ -21,32 +22,52 @@ public class BookServiceImpl implements IBookService {
     @Override
     public BaseResponse listBooks() {
         List<BookResponse> response = repository.listBooks().stream().map(this::from).collect(Collectors.toList());
+        return buildBaseResponse(response, "All books");
+    }
+
+    @Override
+    public BaseResponse getBookById(Long id) {
+        BookResponse response = from(repository.getBookById(id));
+        return buildBaseResponse(response, "Searching Book by Id");
+    }
+
+    @Override
+    public BaseResponse getBookByName(String name) {
+        List<BookResponse> response = repository.getBookByName(name).stream().map(this::from).collect(Collectors.toList());
+        return buildBaseResponse(response , "Searching Book by name");
+    }
+
+    @Override
+    public BaseResponse addBook(BookRequest request) {
+        return null;
+    }
+
+    @Override
+    public BaseResponse updateBookById(Long id, BookRequest request) {
+        return null;
+    }
+
+    @Override
+    public BaseResponse deleteBookById(Long id) {
+        return null;
+    }
+
+    private BaseResponse buildBaseResponse(List<BookResponse> response, String message){
         return BaseResponse.builder()
                 .data(response)
-                .message("All books")
+                .message(message)
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
 
-    @Override
-    public BaseResponse getBook() {
-        return null;
-    }
-
-    @Override
-    public BaseResponse setBook() {
-        return null;
-    }
-
-    @Override
-    public BaseResponse updateBook() {
-        return null;
-    }
-
-    @Override
-    public BaseResponse deleteBook() {
-        return null;
+    private BaseResponse buildBaseResponse(BookResponse response, String message){
+        return BaseResponse.builder()
+                .data(response)
+                .message(message)
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 
     private BookResponse from(BookProjection book){
@@ -54,6 +75,7 @@ public class BookServiceImpl implements IBookService {
         response.setId(book.getId());
         response.setName(book.getName());
         response.setDescription(book.getDescription());
+        response.setCover(book.getCover());
         response.setAuthorName(book.getAuthorName());
         response.setEditorialName(book.getEditorialName());
         response.setYear(book.getYear());

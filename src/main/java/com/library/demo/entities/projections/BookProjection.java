@@ -11,6 +11,7 @@ public interface BookProjection {
 
     String getDescription();
 
+    String getCover();
     String getAuthorName();
 
     String getEditorialName();
