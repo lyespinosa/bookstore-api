@@ -1,15 +1,18 @@
 package com.library.demo.services.interfaces;
 
+import com.library.demo.controllers.dtos.requests.BookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 
 public interface IBookService {
     BaseResponse listBooks();
 
-    BaseResponse getBook();
+    BaseResponse getBookById(Long id);
 
-    BaseResponse setBook();
+    BaseResponse getBookByName(String name);
 
-    BaseResponse updateBook();
+    BaseResponse addBook(BookRequest request);
 
-    BaseResponse deleteBook();
+    BaseResponse updateBookById(Long id, BookRequest request);
+
+    BaseResponse deleteBookById(Long id);
 }

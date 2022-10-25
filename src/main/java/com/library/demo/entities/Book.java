@@ -22,6 +22,9 @@ public class Book {
 
     private String description;
 
+    @Column(length = 400)
+    private String cover;
+
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;

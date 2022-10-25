@@ -1,15 +1,12 @@
-package com.library.demo.controllers.dtos.responses;
+package com.library.demo.controllers.dtos.requests;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
 @Getter @Setter
-public class BookResponse {
-
-    private Long id;
+public class BookRequest {
 
     private String name;
 
@@ -19,12 +16,13 @@ public class BookResponse {
 
     private String authorName;
 
-    private String editorialName;
+    private String EditorialName;
+
+    private String gender;
 
     private String year;
 
     private BigDecimal price;
-
 
 
 }
