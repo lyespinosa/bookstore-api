@@ -1,18 +1,15 @@
 package com.library.demo.entities;
 
-
 import lombok.Getter;
 import lombok.Setter;
-import org.joda.time.LocalTime;
 
 import javax.persistence.*;
-;import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="authors")
-@Getter@Setter
-public class Author {
+@Table (name = "editorials")
+@Getter @Setter
+public class Editorial {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -20,8 +17,6 @@ public class Author {
 
     private String name;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "editorial")
     private List<Book> books;
-
-
 }

@@ -3,7 +3,9 @@ package com.library.demo.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -17,15 +19,19 @@ public class User {
 
     private String name;
 
+    private String lastName;
+
     private String userName;
 
     private String email;
 
     private String password;
 
-    private Date birth;
+    private LocalDate birth;
 
-    private String adress;
+    private int phoneNumber;
+
+    private String address;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;

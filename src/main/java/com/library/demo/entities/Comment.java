@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "comments")
@@ -26,6 +25,6 @@ public class Comment {
 
     private String content;
 
-    private Date date;
+    private LocalDate date;
 
 }

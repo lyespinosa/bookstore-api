@@ -26,4 +26,9 @@ public class Order {
     private int quantity;
 
     private BigDecimal total;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
+
 }
