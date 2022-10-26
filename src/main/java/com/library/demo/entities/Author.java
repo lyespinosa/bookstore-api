@@ -6,7 +6,8 @@ import lombok.Setter;
 import org.joda.time.LocalTime;
 
 import javax.persistence.*;
-;import java.util.List;
+;import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="authors")
