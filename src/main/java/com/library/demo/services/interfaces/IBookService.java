@@ -10,9 +10,9 @@ public interface IBookService {
 
     BaseResponse getBookByName(String name);
 
-    BaseResponse addBook(BookRequest request);
+    BaseResponse create(BookRequest request);
 
-    BaseResponse updateBookById(Long id, BookRequest request);
+    BaseResponse update(Long id, BookRequest request);
 
-    BaseResponse deleteBookById(Long id);
+    void delete(Long id);
 }

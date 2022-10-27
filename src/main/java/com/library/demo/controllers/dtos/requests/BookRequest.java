@@ -8,21 +8,18 @@ import java.math.BigDecimal;
 @Getter @Setter
 public class BookRequest {
 
-    private String name;
+    private String cover;
 
     private String description;
 
-    private String cover;
-
-    private String authorName;
-
-    private String EditorialName;
-
-    private String gender;
-
-    private String year;
+    private String name;
 
     private BigDecimal price;
 
+    private String year;
+
+    private Long authorId;
+
+    private Long editorialId;
 
 }

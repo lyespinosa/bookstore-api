@@ -6,8 +6,5 @@ public interface AuthorProjection {
 
     String getName();
 
-    String getBorn();
-
-    String getDied();
 
 }
