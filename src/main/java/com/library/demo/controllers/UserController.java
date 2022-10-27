@@ -33,19 +33,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> createUser(@RequestBody UserRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody UserRequest request){
         BaseResponse baseResponse = service.createUser(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<BaseResponse> updateUserById(@PathVariable Long id, @RequestBody UserRequest request){
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UserRequest request){
         BaseResponse baseResponse = service.updateUserById(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<BaseResponse> deleteUserById(@PathVariable Long id){
+    public ResponseEntity<BaseResponse> delete(@PathVariable Long id){
         BaseResponse baseResponse = service.deleteUserById(id);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
