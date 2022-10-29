@@ -3,6 +3,7 @@ package com.library.demo.services;
 import com.library.demo.controllers.dtos.requests.AuthorRequest;
 import com.library.demo.controllers.dtos.responses.AuthorResponse;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
+import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Author;
 import com.library.demo.repositories.IAuthorRepository;
 import com.library.demo.services.interfaces.IAuthorService;
@@ -19,23 +20,80 @@ public class AuthorServiceImpl implements IAuthorService {
     @Autowired
     private IAuthorRepository repository;
 
-
     @Override
     public Author findAuthorById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("No se encontró"));
+        return repository.findById(id).orElseThrow(() -> new BookException("No se encontró"));
     }
 
     @Override
-    public Author findAuthorByName(String name) {
-        return repository.findByName(name).orElseThrow(() -> new RuntimeException("No se encontró"));
+    public List<Author> findAuthorByName(String name) {
+            return repository.getAuthorByName(name);
     }
 
     @Override
-    public AuthorResponse create(AuthorRequest request) {
+    public BaseResponse listAuthors() {
+        List<AuthorResponse> responses = repository.findAll().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Authors list")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse getAuthorById(Long id) {
+        AuthorResponse response = from(findAuthorById(id));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Authors order by Id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse getAuthorByName(String name) {
+        List<AuthorResponse> responses = findAuthorByName(name).stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Authors filter by name")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse create(AuthorRequest request) {
         Author author = new Author();
-        author.setName(request.getName());
-        Author savedAuthor = repository.save(author);
-        return from(savedAuthor);
+        author = from(request, author);
+        AuthorResponse response = from(repository.save(author));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Author created")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.CREATED)
+                .build();
+
+    }
+
+    @Override
+    public BaseResponse update(Long id, AuthorRequest request) {
+        Author author = findAuthorById(id);
+        author = from(request, author);
+        AuthorResponse response = from(repository.save(author));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Author updated")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+
     }
 
     private AuthorResponse from(Author author) {
@@ -43,5 +101,10 @@ public class AuthorServiceImpl implements IAuthorService {
         response.setId(author.getId());
         response.setName(author.getName());
         return response;
+    }
+
+    private Author from(AuthorRequest request, Author author){
+        author.setName(request.getName());
+        return author;
     }
 }

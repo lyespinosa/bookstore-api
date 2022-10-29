@@ -1,7 +1,5 @@
 package com.library.demo.repositories;
 
-import com.library.demo.controllers.dtos.requests.BookRequest;
-import com.library.demo.entities.Author;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.projections.BookProjection;
 import org.springframework.data.jpa.repository.JpaRepository;

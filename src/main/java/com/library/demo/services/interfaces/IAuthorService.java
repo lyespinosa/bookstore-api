@@ -1,14 +1,29 @@
 package com.library.demo.services.interfaces;
 
 import com.library.demo.controllers.dtos.requests.AuthorRequest;
-import com.library.demo.controllers.dtos.responses.AuthorResponse;
+import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.entities.Author;
+
+import java.util.List;
 
 public interface IAuthorService {
 
     Author findAuthorById(Long id);
 
-    Author findAuthorByName(String name);
+    List<Author> findAuthorByName(String name);
 
-    AuthorResponse create(AuthorRequest request);
+    BaseResponse listAuthors();
+
+    BaseResponse getAuthorById(Long id);
+
+    BaseResponse getAuthorByName(String name);
+
+    BaseResponse create(AuthorRequest request);
+
+    BaseResponse update(Long id,AuthorRequest request);
+
+    void delete(Long id);
+
+
+
 }
