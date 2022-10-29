@@ -1,18 +1,14 @@
 package com.library.demo.services;
 
 import com.library.demo.controllers.dtos.requests.BookRequest;
-import com.library.demo.controllers.dtos.responses.AuthorResponse;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
-import com.library.demo.controllers.dtos.responses.EditorialResponse;
 import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Author;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Editorial;
 import com.library.demo.entities.projections.BookProjection;
-import com.library.demo.repositories.IAuthorRepository;
 import com.library.demo.repositories.IBookRepository;
-import com.library.demo.repositories.IEditorialRepository;
 import com.library.demo.services.interfaces.IAuthorService;
 import com.library.demo.services.interfaces.IBookService;
 import com.library.demo.services.interfaces.IEditorialService;
@@ -36,6 +32,15 @@ public class BookServiceImpl implements IBookService {
     private IEditorialService editorialService;
 
 
+    @Override
+    public Book findBookById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new BookException("The book does not exist"));
+    }
+
+    @Override
+    public List<BookProjection> findBookByName(String name) {
+        return repository.getBookByName(name);
+    }
 
     @Override
     public BaseResponse listBooks() {
@@ -50,7 +55,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse getBookById(Long id) {
-        BookResponse response = from(findOneAndEnsureExist(id));
+        BookResponse response = from(findBookById(id));
         return BaseResponse.builder()
                 .data(response)
                 .message("Book searched by id")
@@ -61,7 +66,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse getBookByName(String name) {
-        List<BookResponse> response = repository.getBookByName(name).stream().map(this::from).collect(Collectors.toList());
+        List<BookResponse> response = findBookByName(name).stream().map(this::from).collect(Collectors.toList());
         return BaseResponse.builder()
                 .data(response)
                 .message("Books searched by name")
@@ -85,12 +90,13 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse update(Long id, BookRequest request) {
-        Book book = findOneAndEnsureExist(id);
+        Book book = findBookById(id);
         book = from(request, book);
         BookResponse response = from(repository.save(book));
         return BaseResponse.builder()
                 .data(response)
                 .message("Books updated successfully")
+                .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
@@ -99,13 +105,6 @@ public class BookServiceImpl implements IBookService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
-
-    @Override
-    public Book findOneAndEnsureExist(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BookException("The book does not exist"));
-    }
-
 
     private BookResponse from(BookProjection book){
         BookResponse response = new BookResponse();

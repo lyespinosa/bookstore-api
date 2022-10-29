@@ -1,12 +1,17 @@
 package com.library.demo.services;
 
 import com.library.demo.controllers.dtos.requests.EditorialRequest;
+import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.EditorialResponse;
 import com.library.demo.entities.Editorial;
 import com.library.demo.repositories.IEditorialRepository;
 import com.library.demo.services.interfaces.IEditorialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EditorialServiceImpl implements IEditorialService {
@@ -21,16 +26,73 @@ public class EditorialServiceImpl implements IEditorialService {
     }
 
     @Override
-    public Editorial findEditorialByName(String name) {
-        return repository.findByName(name).orElseThrow(() -> new RuntimeException("No se encontró"));
+    public List<Editorial> findEditorialByName(String name) {
+        return repository.getEditorialByName(name);
     }
 
     @Override
-    public EditorialResponse create(EditorialRequest request) {
+    public BaseResponse listEditorials() {
+        List<EditorialResponse> responses = repository.findAll().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Editorials list")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse getEditorialById(Long id) {
+        EditorialResponse response = from(findEditorialById(id));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Editorial order by Id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse getEditorialByName(String name) {
+        List<EditorialResponse> responses = findEditorialByName(name).stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Editorials filter by name")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse create(EditorialRequest request) {
         Editorial editorial = new Editorial();
-        editorial.setName(request.getName());
+        editorial = from(request, editorial);
         Editorial savedEditorial = repository.save(editorial);
-        return from(savedEditorial);
+        return BaseResponse.builder()
+                .data(from(savedEditorial))
+                .message("Editorial created")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.CREATED)
+                .build();
+
+    }
+
+    @Override
+    public BaseResponse update(Long id, EditorialRequest request) {
+        Editorial editorial = findEditorialById(id);
+        editorial = from(request, editorial);
+        EditorialResponse response = from(repository.save(editorial));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Editorial updated")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     private EditorialResponse from(Editorial editorial){
@@ -38,5 +100,10 @@ public class EditorialServiceImpl implements IEditorialService {
         response.setId(editorial.getId());
         response.setName(editorial.getName());
         return response;
+    }
+
+    private Editorial from(EditorialRequest request, Editorial editorial){
+        editorial.setName(request.getName());
+        return editorial;
     }
 }
