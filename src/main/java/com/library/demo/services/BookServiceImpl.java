@@ -5,6 +5,7 @@ import com.library.demo.controllers.dtos.responses.AuthorResponse;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.EditorialResponse;
+import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Author;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Editorial;
@@ -49,7 +50,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse getBookById(Long id) {
-        BookResponse response = from(repository.getBookById(id));
+        BookResponse response = from(findOneAndEnsureExist(id));
         return BaseResponse.builder()
                 .data(response)
                 .message("Book searched by id")
@@ -71,7 +72,8 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse create(BookRequest request) {
-        Book book = from(request);
+        Book book = new Book();
+        book = from(request, book);
         BookResponse response = from(repository.save(book));
         return BaseResponse.builder()
                 .data(response)
@@ -83,12 +85,25 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse update(Long id, BookRequest request) {
-        return null;
+        Book book = findOneAndEnsureExist(id);
+        book = from(request, book);
+        BookResponse response = from(repository.save(book));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Books updated successfully")
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 
     @Override
     public void delete(Long id) {
+        repository.deleteById(id);
+    }
 
+    @Override
+    public Book findOneAndEnsureExist(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BookException("The book does not exist"));
     }
 
 
@@ -112,7 +127,7 @@ public class BookServiceImpl implements IBookService {
         response.setDescription(book.getDescription());
         response.setCover(book.getCover());
         response.setAuthorName( book.getAuthor().getName() );
-        response.setEditorialName( book.getAuthor().getName() );
+        response.setEditorialName( book.getEditorial().getName() );
         response.setYear(book.getYear());
         response.setPrice(book.getPrice());
         return response;
@@ -120,8 +135,7 @@ public class BookServiceImpl implements IBookService {
 
 
 
-    private Book from(BookRequest request){
-        Book book = new Book();
+    private Book from(BookRequest request, Book book){
         book.setCover(request.getCover());
         book.setDescription(request.getDescription());
         book.setName(request.getName());
@@ -135,6 +149,8 @@ public class BookServiceImpl implements IBookService {
         book.setEditorial(editorial);
 
         return book;
-
     }
+
+
+
 }

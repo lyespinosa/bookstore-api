@@ -29,14 +29,14 @@ public class BookController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @GetMapping("{name}")
+    @GetMapping("name/{name}")
     public ResponseEntity<BaseResponse> getBookByName(@PathVariable String name){
         BaseResponse baseResponse = service.getBookByName(name);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody BookRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid BookRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
