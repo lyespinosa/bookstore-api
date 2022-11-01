@@ -2,10 +2,12 @@ package com.library.demo.services;
 
 import com.library.demo.controllers.dtos.requests.GenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
+import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.GenderResponse;
 import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Gender;
 import com.library.demo.repositories.IGenderRepository;
+import com.library.demo.services.interfaces.IBookGenderService;
 import com.library.demo.services.interfaces.IGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,16 @@ public class GenderServiceImpl implements IGenderService {
     @Autowired
     IGenderRepository repository;
 
+
+
     @Override
     public Gender findGenderById(Long id) {
         return repository.findById(id).orElseThrow(() -> new BookException("No se encontró"));
+    }
+
+    @Override
+    public List<Gender> findGenderListById(List<Long> ids) {
+        return null;
     }
 
     @Override

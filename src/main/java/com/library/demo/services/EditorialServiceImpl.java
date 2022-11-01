@@ -67,9 +67,9 @@ public class EditorialServiceImpl implements IEditorialService {
     public BaseResponse create(EditorialRequest request) {
         Editorial editorial = new Editorial();
         editorial = from(request, editorial);
-        Editorial savedEditorial = repository.save(editorial);
+        EditorialResponse response = from(repository.save(editorial));
         return BaseResponse.builder()
-                .data(from(savedEditorial))
+                .data(response)
                 .message("Editorial created")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.CREATED)

@@ -10,6 +10,8 @@ public interface IGenderService {
 
     Gender findGenderById(Long id);
 
+    List<Gender> findGenderListById(List<Long> ids);
+
     List<Gender> findEGenderByName(String name);
 
     BaseResponse listGenders();

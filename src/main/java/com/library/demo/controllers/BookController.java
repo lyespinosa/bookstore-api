@@ -38,7 +38,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody @Valid BookRequest request){
         BaseResponse baseResponse = service.create(request);
-        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+            return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")

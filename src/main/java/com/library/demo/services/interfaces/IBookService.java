@@ -2,6 +2,7 @@ package com.library.demo.services.interfaces;
 
 import com.library.demo.controllers.dtos.requests.BookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
+import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.projections.BookProjection;
 
@@ -24,5 +25,7 @@ public interface IBookService {
     BaseResponse update(Long id, BookRequest request);
 
     void delete(Long id);
+
+    BookResponse from(BookProjection book);
 
 }
