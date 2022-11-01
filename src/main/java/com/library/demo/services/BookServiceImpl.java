@@ -1,17 +1,19 @@
 package com.library.demo.services;
 
+import com.library.demo.controllers.dtos.requests.BookGenderRequest;
 import com.library.demo.controllers.dtos.requests.BookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
+import com.library.demo.controllers.dtos.responses.GenderResponse;
 import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Author;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Editorial;
+import com.library.demo.entities.Gender;
 import com.library.demo.entities.projections.BookProjection;
 import com.library.demo.repositories.IBookRepository;
-import com.library.demo.services.interfaces.IAuthorService;
-import com.library.demo.services.interfaces.IBookService;
-import com.library.demo.services.interfaces.IEditorialService;
+import com.library.demo.repositories.IBooksGenderRepository;
+import com.library.demo.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,8 @@ public class BookServiceImpl implements IBookService {
 
     @Autowired
     private IEditorialService editorialService;
+
+
 
 
     @Override
@@ -77,9 +81,16 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BaseResponse create(BookRequest request) {
+
+        /*List<BookGenderRequest> requests = request.getGenders().stream().map(genderId -> from(genderId, response.getId())).collect(Collectors.toList());
+
+        Book finalBook = book;
+        requests.stream().map(bGRequest -> bookGenderService.create(bGRequest, finalBook)).collect(Collectors.toList());*/
+
         Book book = new Book();
         book = from(request, book);
         BookResponse response = from(repository.save(book));
+
         return BaseResponse.builder()
                 .data(response)
                 .message("Book created successfully")
@@ -101,23 +112,27 @@ public class BookServiceImpl implements IBookService {
                 .build();
     }
 
+
+
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
     }
 
-    private BookResponse from(BookProjection book){
+    public BookResponse from(BookProjection book){
         BookResponse response = new BookResponse();
         response.setId(book.getId());
         response.setName(book.getName());
         response.setDescription(book.getDescription());
         response.setCover(book.getCover());
         response.setAuthorName(book.getAuthorName());
+
         response.setEditorialName(book.getEditorialName());
         response.setYear(book.getYear());
         response.setPrice(book.getPrice());
         return response;
     }
+
 
     private BookResponse from(Book book){
         BookResponse response = new BookResponse();
@@ -127,6 +142,7 @@ public class BookServiceImpl implements IBookService {
         response.setCover(book.getCover());
         response.setAuthorName( book.getAuthor().getName() );
         response.setEditorialName( book.getEditorial().getName() );
+
         response.setYear(book.getYear());
         response.setPrice(book.getPrice());
         return response;
@@ -146,6 +162,8 @@ public class BookServiceImpl implements IBookService {
 
         Editorial editorial = editorialService.findEditorialById(request.getEditorialId());
         book.setEditorial(editorial);
+
+
 
         return book;
     }

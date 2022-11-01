@@ -12,4 +12,6 @@ public interface IGenderRepository  extends JpaRepository<Gender, Long> {
             "where genders.name like %:genderName%", nativeQuery = true)
     List<Gender> getGenderByName(String genderName);
 
+
+
 }
