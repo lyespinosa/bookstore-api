@@ -1,6 +1,6 @@
 package com.library.demo.services.interfaces;
 
-import com.library.demo.controllers.dtos.requests.BookGenderRequest;
+import com.library.demo.controllers.dtos.requests.CreateBookGenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.GenderResponse;
@@ -13,6 +13,6 @@ public interface IBookGenderService {
 
     List<BookResponse> listAllBooksByGenderId(Long id);
 
-    BaseResponse create(BookGenderRequest request);
+    BaseResponse create(CreateBookGenderRequest request);
 
 }

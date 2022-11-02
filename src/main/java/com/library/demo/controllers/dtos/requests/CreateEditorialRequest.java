@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class EditorialRequest {
+public class CreateEditorialRequest {
 
     private String name;
 

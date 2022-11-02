@@ -1,6 +1,7 @@
 package com.library.demo.services.interfaces;
 
-import com.library.demo.controllers.dtos.requests.AuthorRequest;
+import com.library.demo.controllers.dtos.requests.CreateAuthorRequest;
+import com.library.demo.controllers.dtos.requests.UpdateAuthorRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.entities.Author;
 
@@ -18,9 +19,9 @@ public interface IAuthorService {
 
     BaseResponse getAuthorByName(String name);
 
-    BaseResponse create(AuthorRequest request);
+    BaseResponse create(CreateAuthorRequest request);
 
-    BaseResponse update(Long id,AuthorRequest request);
+    BaseResponse update(Long id, UpdateAuthorRequest request);
 
     void delete(Long id);
 

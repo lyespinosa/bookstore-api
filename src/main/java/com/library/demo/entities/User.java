@@ -29,7 +29,8 @@ public class User {
 
     private LocalDate birth;
 
-    private int phoneNumber;
+    @Column(length = 10)
+    private String phoneNumber;
 
     private String address;
 

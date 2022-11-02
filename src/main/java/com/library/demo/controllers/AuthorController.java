@@ -1,7 +1,7 @@
 package com.library.demo.controllers;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.library.demo.controllers.dtos.requests.AuthorRequest;
+import com.library.demo.controllers.dtos.requests.CreateAuthorRequest;
+import com.library.demo.controllers.dtos.requests.UpdateAuthorRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.services.interfaces.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +42,13 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody @Valid AuthorRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateAuthorRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid AuthorRequest request){
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateAuthorRequest request){
         BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }

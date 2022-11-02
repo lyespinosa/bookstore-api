@@ -1,7 +1,7 @@
 package com.library.demo.controllers;
 
-import com.library.demo.controllers.dtos.requests.AuthorRequest;
-import com.library.demo.controllers.dtos.requests.EditorialRequest;
+import com.library.demo.controllers.dtos.requests.CreateEditorialRequest;
+import com.library.demo.controllers.dtos.requests.UpdateEditorialRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.services.interfaces.IEditorialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +42,13 @@ public class EditorialController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody @Valid EditorialRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateEditorialRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid EditorialRequest request){
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateEditorialRequest request){
         BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }

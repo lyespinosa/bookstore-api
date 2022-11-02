@@ -1,11 +1,14 @@
 package com.library.demo.controllers;
 
-import com.library.demo.controllers.dtos.requests.UserRequest;
+import com.library.demo.controllers.dtos.requests.CreateUserRequest;
+import com.library.demo.controllers.dtos.requests.UpdateUserRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("user")
@@ -33,20 +36,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody UserRequest request){
-        BaseResponse baseResponse = service.createUser(request);
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateUserRequest request){
+        BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UserRequest request){
-        BaseResponse baseResponse = service.updateUserById(id, request);
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UpdateUserRequest request){
+        BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<BaseResponse> delete(@PathVariable Long id){
-        BaseResponse baseResponse = service.deleteUserById(id);
-        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    public void delete(@PathVariable Long id){
+       service.delete(id);
     }
 }

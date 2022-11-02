@@ -1,8 +1,8 @@
 package com.library.demo.controllers;
 
-import com.library.demo.controllers.dtos.requests.BookRequest;
+import com.library.demo.controllers.dtos.requests.CreateBookRequest;
+import com.library.demo.controllers.dtos.requests.UpdateBookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
-import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.services.interfaces.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +36,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody @Valid BookRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateBookRequest request){
         BaseResponse baseResponse = service.create(request);
             return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody BookRequest request){
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UpdateBookRequest request){
         BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }

@@ -1,6 +1,7 @@
 package com.library.demo.services;
 
-import com.library.demo.controllers.dtos.requests.EditorialRequest;
+import com.library.demo.controllers.dtos.requests.CreateEditorialRequest;
+import com.library.demo.controllers.dtos.requests.UpdateEditorialRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.EditorialResponse;
 import com.library.demo.entities.Editorial;
@@ -64,9 +65,9 @@ public class EditorialServiceImpl implements IEditorialService {
     }
 
     @Override
-    public BaseResponse create(EditorialRequest request) {
+    public BaseResponse create(CreateEditorialRequest request) {
         Editorial editorial = new Editorial();
-        editorial = from(request, editorial);
+        editorial = create(request, editorial);
         EditorialResponse response = from(repository.save(editorial));
         return BaseResponse.builder()
                 .data(response)
@@ -78,9 +79,9 @@ public class EditorialServiceImpl implements IEditorialService {
     }
 
     @Override
-    public BaseResponse update(Long id, EditorialRequest request) {
+    public BaseResponse update(Long id, UpdateEditorialRequest request) {
         Editorial editorial = findEditorialById(id);
-        editorial = from(request, editorial);
+        editorial = update(request, editorial);
         EditorialResponse response = from(repository.save(editorial));
         return BaseResponse.builder()
                 .data(response)
@@ -102,7 +103,12 @@ public class EditorialServiceImpl implements IEditorialService {
         return response;
     }
 
-    private Editorial from(EditorialRequest request, Editorial editorial){
+    private Editorial create(CreateEditorialRequest request, Editorial editorial){
+        editorial.setName(request.getName());
+        return editorial;
+    }
+
+    private Editorial update(UpdateEditorialRequest request, Editorial editorial){
         editorial.setName(request.getName());
         return editorial;
     }

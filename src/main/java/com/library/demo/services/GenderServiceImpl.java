@@ -1,13 +1,12 @@
 package com.library.demo.services;
 
-import com.library.demo.controllers.dtos.requests.GenderRequest;
+import com.library.demo.controllers.dtos.requests.CreateGenderRequest;
+import com.library.demo.controllers.dtos.requests.UpdateGenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
-import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.GenderResponse;
 import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Gender;
 import com.library.demo.repositories.IGenderRepository;
-import com.library.demo.services.interfaces.IBookGenderService;
 import com.library.demo.services.interfaces.IGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,9 +72,9 @@ public class GenderServiceImpl implements IGenderService {
     }
 
     @Override
-    public BaseResponse create(GenderRequest request) {
+    public BaseResponse create(CreateGenderRequest request) {
         Gender gender = new Gender();
-        gender = from(request, gender);
+        gender = create(request, gender);
         GenderResponse response= from(repository.save(gender));
         return BaseResponse.builder()
                 .data(response)
@@ -86,9 +85,9 @@ public class GenderServiceImpl implements IGenderService {
     }
 
     @Override
-    public BaseResponse update(Long id, GenderRequest request) {
+    public BaseResponse update(Long id, UpdateGenderRequest request) {
         Gender gender = new Gender();
-        gender = from(request, gender);
+        gender = update(request, gender);
         GenderResponse response = from(repository.save(gender));
         return BaseResponse.builder()
                 .data(response)
@@ -108,7 +107,12 @@ public class GenderServiceImpl implements IGenderService {
         return response;
     }
 
-    private Gender from(GenderRequest request, Gender gender){
+    private Gender create(CreateGenderRequest request, Gender gender){
+        gender.setName(request.getName());
+        return gender;
+    }
+
+    private Gender update(UpdateGenderRequest request, Gender gender){
         gender.setName(request.getName());
         return gender;
     }

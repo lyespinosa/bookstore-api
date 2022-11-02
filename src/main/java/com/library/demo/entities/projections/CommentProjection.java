@@ -8,9 +8,9 @@ public interface CommentProjection {
 
     Long getId();
 
-    String getUser();
+    String getUserName();
 
-    String getBook();
+    String getBookName();
 
     String getContent();
 

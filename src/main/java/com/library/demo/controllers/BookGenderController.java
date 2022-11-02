@@ -1,6 +1,6 @@
 package com.library.demo.controllers;
 
-import com.library.demo.controllers.dtos.requests.BookGenderRequest;
+import com.library.demo.controllers.dtos.requests.CreateBookGenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.GenderResponse;
@@ -29,7 +29,7 @@ public class BookGenderController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody BookGenderRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody CreateBookGenderRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }

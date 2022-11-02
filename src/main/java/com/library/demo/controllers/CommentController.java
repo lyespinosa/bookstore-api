@@ -1,8 +1,7 @@
 package com.library.demo.controllers;
 
-import com.library.demo.controllers.dtos.requests.CommentRequest;
+import com.library.demo.controllers.dtos.requests.CreateCommentRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
-import com.library.demo.entities.Comment;
 import com.library.demo.services.interfaces.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +14,15 @@ public class CommentController {
     @Autowired
     private ICommentService service;
 
-    @GetMapping("")
-    public ResponseEntity<BaseResponse> listComments(){
-        BaseResponse baseResponse = service.listComments();
+    @GetMapping("book/{id}")
+    public ResponseEntity<BaseResponse> listAllCommentsByBookId( @PathVariable Long id){
+        BaseResponse baseResponse = service.listAllCommentsByBookId(id);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> addComment(@RequestBody CommentRequest request){
-        BaseResponse baseResponse = service.addComment(request);
+    public ResponseEntity<BaseResponse> create(@RequestBody CreateCommentRequest request){
+        BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 }

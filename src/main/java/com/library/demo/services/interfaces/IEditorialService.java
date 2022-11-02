@@ -1,6 +1,7 @@
 package com.library.demo.services.interfaces;
 
-import com.library.demo.controllers.dtos.requests.EditorialRequest;
+import com.library.demo.controllers.dtos.requests.CreateEditorialRequest;
+import com.library.demo.controllers.dtos.requests.UpdateEditorialRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.entities.Editorial;
 
@@ -18,9 +19,9 @@ public interface IEditorialService {
 
     BaseResponse getEditorialByName(String name);
 
-    BaseResponse create(EditorialRequest request);
+    BaseResponse create(CreateEditorialRequest request);
 
-    BaseResponse update(Long id,EditorialRequest request);
+    BaseResponse update(Long id, UpdateEditorialRequest request);
 
     void delete(Long id);
 

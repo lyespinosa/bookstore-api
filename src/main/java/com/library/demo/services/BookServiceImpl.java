@@ -1,18 +1,15 @@
 package com.library.demo.services;
 
-import com.library.demo.controllers.dtos.requests.BookGenderRequest;
-import com.library.demo.controllers.dtos.requests.BookRequest;
+import com.library.demo.controllers.dtos.requests.CreateBookRequest;
+import com.library.demo.controllers.dtos.requests.UpdateBookRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
-import com.library.demo.controllers.dtos.responses.GenderResponse;
 import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Author;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Editorial;
-import com.library.demo.entities.Gender;
 import com.library.demo.entities.projections.BookProjection;
 import com.library.demo.repositories.IBookRepository;
-import com.library.demo.repositories.IBooksGenderRepository;
 import com.library.demo.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,7 +77,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public BaseResponse create(BookRequest request) {
+    public BaseResponse create(CreateBookRequest request) {
 
         /*List<BookGenderRequest> requests = request.getGenders().stream().map(genderId -> from(genderId, response.getId())).collect(Collectors.toList());
 
@@ -88,7 +85,7 @@ public class BookServiceImpl implements IBookService {
         requests.stream().map(bGRequest -> bookGenderService.create(bGRequest, finalBook)).collect(Collectors.toList());*/
 
         Book book = new Book();
-        book = from(request, book);
+        book = create(request, book);
         BookResponse response = from(repository.save(book));
 
         return BaseResponse.builder()
@@ -100,9 +97,9 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public BaseResponse update(Long id, BookRequest request) {
+    public BaseResponse update(Long id, UpdateBookRequest request) {
         Book book = findBookById(id);
-        book = from(request, book);
+        book = update(request, book);
         BookResponse response = from(repository.save(book));
         return BaseResponse.builder()
                 .data(response)
@@ -150,7 +147,25 @@ public class BookServiceImpl implements IBookService {
 
 
 
-    private Book from(BookRequest request, Book book){
+    private Book create(CreateBookRequest request, Book book){
+        book.setCover(request.getCover());
+        book.setDescription(request.getDescription());
+        book.setName(request.getName());
+        book.setPrice(request.getPrice());
+        book.setYear(request.getYear());
+
+        Author author = authorService.findAuthorById(request.getAuthorId());
+        book.setAuthor(author);
+
+        Editorial editorial = editorialService.findEditorialById(request.getEditorialId());
+        book.setEditorial(editorial);
+
+
+
+        return book;
+    }
+
+    private Book update(UpdateBookRequest request, Book book){
         book.setCover(request.getCover());
         book.setDescription(request.getDescription());
         book.setName(request.getName());

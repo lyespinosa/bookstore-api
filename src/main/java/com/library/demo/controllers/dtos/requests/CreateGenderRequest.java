@@ -4,9 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class BookGenderRequest {
+public class CreateGenderRequest {
 
-    private Long bookId;
+    private String name;
 
-    private Long genderId;
 }

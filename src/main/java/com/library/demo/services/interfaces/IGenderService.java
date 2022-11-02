@@ -1,6 +1,7 @@
 package com.library.demo.services.interfaces;
 
-import com.library.demo.controllers.dtos.requests.GenderRequest;
+import com.library.demo.controllers.dtos.requests.CreateGenderRequest;
+import com.library.demo.controllers.dtos.requests.UpdateGenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.entities.Gender;
 
@@ -20,9 +21,9 @@ public interface IGenderService {
 
     BaseResponse getGenderByName(String name);
 
-    BaseResponse create(GenderRequest request);
+    BaseResponse create(CreateGenderRequest request);
 
-    BaseResponse update(Long id,GenderRequest request);
+    BaseResponse update(Long id, UpdateGenderRequest request);
 
     void delete(Long id);
 

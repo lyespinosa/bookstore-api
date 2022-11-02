@@ -1,6 +1,7 @@
 package com.library.demo.services;
 
-import com.library.demo.controllers.dtos.requests.AuthorRequest;
+import com.library.demo.controllers.dtos.requests.CreateAuthorRequest;
+import com.library.demo.controllers.dtos.requests.UpdateAuthorRequest;
 import com.library.demo.controllers.dtos.responses.AuthorResponse;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.exceptions.BookException;
@@ -22,7 +23,7 @@ public class AuthorServiceImpl implements IAuthorService {
 
     @Override
     public Author findAuthorById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new BookException("No se encontró"));
+        return repository.findById(id).orElseThrow(() -> new BookException("Author not found "));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class AuthorServiceImpl implements IAuthorService {
         AuthorResponse response = from(findAuthorById(id));
         return BaseResponse.builder()
                 .data(response)
-                .message("Authors order by Id")
+                .message("Author by Id")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
@@ -64,9 +65,9 @@ public class AuthorServiceImpl implements IAuthorService {
     }
 
     @Override
-    public BaseResponse create(AuthorRequest request) {
+    public BaseResponse create(CreateAuthorRequest request) {
         Author author = new Author();
-        author = from(request, author);
+        author = create(request, author);
         AuthorResponse response = from(repository.save(author));
         return BaseResponse.builder()
                 .data(response)
@@ -78,9 +79,9 @@ public class AuthorServiceImpl implements IAuthorService {
     }
 
     @Override
-    public BaseResponse update(Long id, AuthorRequest request) {
+    public BaseResponse update(Long id, UpdateAuthorRequest request) {
         Author author = findAuthorById(id);
-        author = from(request, author);
+        author = update(request, author);
         AuthorResponse response = from(repository.save(author));
         return BaseResponse.builder()
                 .data(response)
@@ -103,7 +104,12 @@ public class AuthorServiceImpl implements IAuthorService {
         return response;
     }
 
-    private Author from(AuthorRequest request, Author author){
+    private Author create(CreateAuthorRequest request, Author author){
+        author.setName(request.getName());
+        return author;
+    }
+
+    private Author update(UpdateAuthorRequest request, Author author){
         author.setName(request.getName());
         return author;
     }

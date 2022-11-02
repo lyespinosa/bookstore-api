@@ -1,20 +1,32 @@
 package com.library.demo.controllers.dtos.requests;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 
-@Getter @Setter
+@Setter @Getter
 public class CreateUserRequest {
+
+    private String name;
+
+    private String lastName;
+
+    private String userName;
 
     @Email
     private String email;
 
-    @NotNull @NotBlank @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+    @NotBlank
     private String password;
+
+    @NotNull @NotBlank @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
+    private LocalDate birth;
+
+    @Size(min = 10,max = 14)
+    private String phoneNumber;
+
+
+    private String address;
 }

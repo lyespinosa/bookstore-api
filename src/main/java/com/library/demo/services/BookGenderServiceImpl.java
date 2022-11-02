@@ -1,6 +1,6 @@
 package com.library.demo.services;
 
-import com.library.demo.controllers.dtos.requests.BookGenderRequest;
+import com.library.demo.controllers.dtos.requests.CreateBookGenderRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookGenderResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
@@ -50,7 +50,7 @@ public class BookGenderServiceImpl implements IBookGenderService {
     }
 
     @Override
-    public BaseResponse create(BookGenderRequest request) {
+    public BaseResponse create(CreateBookGenderRequest request) {
         BookGender bookGender = new BookGender();
         bookGender = from(request, bookGender);
         BookGenderResponse response = from(repository.save(bookGender));
@@ -86,7 +86,7 @@ public class BookGenderServiceImpl implements IBookGenderService {
         return  response;
     }
 
-    private BookGender from(BookGenderRequest request, BookGender bookGender){
+    private BookGender from(CreateBookGenderRequest request, BookGender bookGender){
 
         Gender gender = genderService.findGenderById(request.getGenderId());
         bookGender.setGender(gender);

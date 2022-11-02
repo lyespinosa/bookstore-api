@@ -23,6 +23,8 @@ public class Order {
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
+    private BigDecimal price;
+
     private int quantity;
 
     private BigDecimal total;

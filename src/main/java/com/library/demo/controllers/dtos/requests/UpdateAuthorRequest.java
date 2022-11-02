@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class AuthorRequest {
+public class UpdateAuthorRequest {
 
     private String name;
 
