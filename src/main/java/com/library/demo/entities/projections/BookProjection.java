@@ -22,5 +22,5 @@ public interface BookProjection {
 
     //future leo, if you ask yourself why you don't put the order and the comment
     //relation,it's 'cause you don't must to show it here, that is done on their entities
-
+    //future leo, javi is a dummy and he can´t finish his part :)
 }
