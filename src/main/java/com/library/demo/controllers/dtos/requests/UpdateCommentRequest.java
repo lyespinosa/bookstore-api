@@ -19,6 +19,6 @@ public class UpdateCommentRequest {
     @NotBlank @NotNull
     private String content;
 
-    @NotNull @NotBlank
+    @NotNull
     private LocalDate date;
 }

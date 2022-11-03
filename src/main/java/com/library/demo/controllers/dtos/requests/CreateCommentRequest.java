@@ -13,7 +13,7 @@ public class CreateCommentRequest {
     @NotBlank @NotNull
     private String content;
 
-    @NotNull @NotBlank
+    @NotNull
     private LocalDate date;
 
     @NotNull

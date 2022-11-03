@@ -27,7 +27,13 @@ public class StatusServiceImpl implements IStatusService {
 
     @Override
     public Status findStatusByName(String name) {
-        return repository.getStatusByName(name);
+        Status status = repository.getStatusByName(name);
+
+        if(status == null){
+            throw new BookException("That Status does not exist");
+        }
+
+        return status;
     }
 
     @Override
