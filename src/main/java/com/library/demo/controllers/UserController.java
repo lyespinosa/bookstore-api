@@ -1,5 +1,6 @@
 package com.library.demo.controllers;
 
+import com.library.demo.controllers.dtos.requests.AuthenticateUserRequest;
 import com.library.demo.controllers.dtos.requests.CreateUserRequest;
 import com.library.demo.controllers.dtos.requests.UpdateUserRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     private IUserService service;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<BaseResponse> listUsers(){
         BaseResponse baseResponse = service.listUsers();
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
@@ -29,15 +30,9 @@ public class UserController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @GetMapping("name/{password}")
-    public ResponseEntity<BaseResponse> getUserByPassword(@PathVariable String password){
-        BaseResponse baseResponse = service.getUserByPassword(password);
-        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
-    }
-
-    @GetMapping("email/{email}")
-    public ResponseEntity<BaseResponse> getUserByEmail(@PathVariable String email){
-        BaseResponse baseResponse = service.getUserByEmail(email);
+    @GetMapping("login")
+    public ResponseEntity<BaseResponse> getUserByEmailAndPassword(@RequestBody @Valid AuthenticateUserRequest request){
+        BaseResponse baseResponse = service.getUserByEmailAndPassword(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 

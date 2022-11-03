@@ -1,5 +1,6 @@
 package com.library.demo.services;
 
+import com.library.demo.controllers.dtos.requests.AuthenticateUserRequest;
 import com.library.demo.controllers.dtos.requests.CreateUserRequest;
 import com.library.demo.controllers.dtos.requests.UpdateUserRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
@@ -54,28 +55,24 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public BaseResponse getUserByEmail(String email) {
-        UserResponse response = from(findUserByEmail(email));
+    public BaseResponse getUserByEmailAndPassword(AuthenticateUserRequest request) {
+        User user = repository.getUserByEmailAndPassword(request.getEmail(), request.getPassword());
+
+        if(user == null) {
+            throw new BookException("User incorrect");
+        }
+
+        UserResponse response = from(user);
+
         return BaseResponse.builder()
                 .data(response)
-                .message("User by Id")
+                .message("User correct")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
 
-    @Override
-    public BaseResponse getUserByPassword(String password) {
-       UserResponse response = from(findUserByPassword(password));
-        return BaseResponse.builder()
-                .data(response)
-                .message("User by password")
-                .success(Boolean.TRUE)
-                .httpStatus(HttpStatus.OK)
-                .build();
-    }
 
-    private User findUserByPassword(String password) {return repository.getUserByPassword(password);}
 
     @Override
     public BaseResponse create(CreateUserRequest request) {
