@@ -25,7 +25,7 @@ public class GenderServiceImpl implements IGenderService {
 
     @Override
     public Gender findGenderById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new BookException("No se encontró"));
+        return repository.findById(id).orElseThrow(() -> new BookException("The gender does not exist"));
     }
 
     @Override

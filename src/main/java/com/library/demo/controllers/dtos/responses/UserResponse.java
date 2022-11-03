@@ -20,6 +20,8 @@ public class UserResponse {
 
     private LocalDate birth;
 
+    private String phoneNumber;
+
     private String address;
 
 }

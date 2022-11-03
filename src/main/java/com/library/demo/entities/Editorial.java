@@ -17,6 +17,6 @@ public class Editorial {
 
     private String name;
 
-    @OneToMany(mappedBy = "editorial")
+    @OneToMany(mappedBy = "editorial", cascade = CascadeType.ALL)
     private List<Book> books;
 }

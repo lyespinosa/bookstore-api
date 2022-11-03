@@ -9,19 +9,22 @@ import java.time.LocalDate;
 @Setter @Getter
 public class UpdateUserRequest {
 
+    @NotNull @NotBlank
     private String name;
 
+    @NotNull @NotBlank
     private String lastName;
 
+    @NotNull @NotBlank
     private String userName;
 
-    @Email
+    @NotNull @Email
     private String email;
 
-    @NotBlank
+    @NotNull @NotBlank @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
     private String password;
 
-    @NotNull @NotBlank @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
+    @NotNull
     private LocalDate birth;
 
     @Size(min = 10,max = 14)

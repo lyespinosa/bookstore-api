@@ -42,7 +42,7 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UpdateBookRequest request){
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateBookRequest request){
         BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
