@@ -1,5 +1,6 @@
 package com.library.demo.services.interfaces;
 
+import com.library.demo.controllers.dtos.requests.AuthenticateUserRequest;
 import com.library.demo.controllers.dtos.requests.CreateUserRequest;
 import com.library.demo.controllers.dtos.requests.UpdateUserRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
@@ -16,9 +17,7 @@ public interface IUserService {
 
     BaseResponse getUserById(Long id);
 
-    BaseResponse getUserByEmail(String email);
-
-    BaseResponse getUserByPassword(String password);
+    BaseResponse getUserByEmailAndPassword(AuthenticateUserRequest request);
 
     BaseResponse create(CreateUserRequest request);
 

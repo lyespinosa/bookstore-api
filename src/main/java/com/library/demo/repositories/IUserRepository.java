@@ -13,6 +13,8 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     User getUserByEmail(String userEmail);
 
     @Query(value = "select users.* from users " +
-            "where users.password =  :userPassword", nativeQuery = true)
-    User getUserByPassword(String userPassword);
+            "where users.email =  :userEmail and users.password = :userPassword ", nativeQuery = true)
+    User getUserByEmailAndPassword(String userEmail, String userPassword);
+
+
 }

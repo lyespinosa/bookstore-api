@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("comment")
 public class CommentController {
@@ -21,7 +23,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody CreateCommentRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateCommentRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
