@@ -29,7 +29,7 @@ public class UserController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @GetMapping("name/{email}")
+    @GetMapping("email/{email}")
     public ResponseEntity<BaseResponse> getUserByEmail(@PathVariable String email){
         BaseResponse baseResponse = service.getUserByEmail(email);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());

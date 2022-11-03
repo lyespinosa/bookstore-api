@@ -34,5 +34,10 @@ public class BookGenderController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @DeleteMapping("{id}")
+    public void delete(@RequestBody Long id){
+        service.delete(id);
+    }
+
 
 }

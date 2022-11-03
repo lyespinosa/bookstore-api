@@ -24,6 +24,12 @@ public class OrderController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @GetMapping("user/{id}/status/{statusName}")
+    public ResponseEntity<BaseResponse> lisAllOrdersByUserIdFilterStatus(@PathVariable Long id, @PathVariable String statusName){
+        BaseResponse baseResponse = service.listAllOrdersByUserIdFilterStatus(id, statusName);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<BaseResponse> getOrderById(@PathVariable Long id){
         BaseResponse baseResponse = service.getOrderById(id);

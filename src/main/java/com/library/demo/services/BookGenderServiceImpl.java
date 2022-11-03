@@ -62,6 +62,10 @@ public class BookGenderServiceImpl implements IBookGenderService {
                 .build();
     }
 
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 
 
     private GenderResponse from(GenderProjection gender){

@@ -15,6 +15,6 @@ public interface OrderProjection {
 
     BigDecimal getTotal();
 
-    String getStatus();
+    String getStatusName();
 
 }

@@ -15,4 +15,6 @@ public interface IBookGenderService {
 
     BaseResponse create(CreateBookGenderRequest request);
 
+    void delete(Long id);
+
 }

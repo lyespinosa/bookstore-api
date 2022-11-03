@@ -13,6 +13,7 @@ public interface IOrderService {
 
     BaseResponse listAllOrdersByUserId(Long id);
 
+    BaseResponse listAllOrdersByUserIdFilterStatus(Long id, String statusName);
 
     BaseResponse getOrderById(Long id);
 

@@ -55,6 +55,11 @@ public class CommentServiceImpl implements ICommentService {
                 .build();
     }
 
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
     private CommentResponse from(Comment comment) {
         CommentResponse response = new CommentResponse();
         response.setId(comment.getId());

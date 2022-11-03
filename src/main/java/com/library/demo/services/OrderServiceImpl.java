@@ -51,6 +51,19 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    public BaseResponse listAllOrdersByUserIdFilterStatus(Long id, String statusName) {
+        Status status = statusService.findStatusByName(statusName);
+        List<OrderResponse> response = repository.listAllOrdersByUserIdFilterStatus(id, status.getId())
+                .stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("All orders on " + status.getName() + "status")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
     public BaseResponse getOrderById(Long id) {
         OrderResponse response = from(repository.getOrderById(id));
         return  BaseResponse.builder()
@@ -97,11 +110,12 @@ public class OrderServiceImpl implements IOrderService {
     private OrderResponse from(OrderProjection order){
         OrderResponse response = new OrderResponse();
         response.setId(order.getId());
-        response.setTotal(order.getTotal());
+        response.setPrice(order.getPrice());
         response.setQuantity(order.getQuantity());
+        response.setTotal(order.getTotal());
         response.setBookId(order.getBookId());
         response.setUserId(order.getUserId());
-        response.setStatus(order.getStatus());
+        response.setStatus(order.getStatusName());
         return response;
     }
 
