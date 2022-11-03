@@ -65,6 +65,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public BaseResponse getUserByPassword(String password) {
+       UserResponse response = from(findUserByPassword(password));
+        return BaseResponse.builder()
+                .data(response)
+                .message("User by password")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    private User findUserByPassword(String password) {return repository.getUserByPassword(password);}
+
+    @Override
     public BaseResponse create(CreateUserRequest request) {
         User user = new User();
         user = create(request, user);

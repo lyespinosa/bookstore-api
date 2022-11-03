@@ -29,6 +29,12 @@ public class UserController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @GetMapping("name/{password}")
+    public ResponseEntity<BaseResponse> getUserByPassword(@PathVariable String password){
+        BaseResponse baseResponse = service.getUserByPassword(password);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("email/{email}")
     public ResponseEntity<BaseResponse> getUserByEmail(@PathVariable String email){
         BaseResponse baseResponse = service.getUserByEmail(email);

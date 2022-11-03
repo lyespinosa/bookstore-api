@@ -18,9 +18,12 @@ public interface IUserService {
 
     BaseResponse getUserByEmail(String email);
 
+    BaseResponse getUserByPassword(String password);
+
     BaseResponse create(CreateUserRequest request);
 
     BaseResponse update(Long id, UpdateUserRequest request);
 
     void delete(Long id);
+
 }
