@@ -112,11 +112,24 @@ public class UserServiceImpl implements IUserService {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
         response.setName(user.getName());
+        response.setLastName(user.getLastName());
+        response.setUserName(user.getUserName());
+        response.setEmail(user.getEmail());
+        response.setBirth(user.getBirth());
+        response.setPhoneNumber(user.getPhoneNumber());
+        response.setAddress(user.getAddress());
         return response;
     }
 
     private User create(CreateUserRequest request, User user){
         user.setName(request.getName());
+        user.setLastName(request.getLastName());
+        user.setUserName(request.getUserName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setBirth(request.getBirth());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setAddress(request.getAddress());
         return user;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class BookGenderController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> create(@RequestBody CreateBookGenderRequest request){
+    public ResponseEntity<BaseResponse> create(@RequestBody @Valid CreateBookGenderRequest request){
         BaseResponse baseResponse = service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
