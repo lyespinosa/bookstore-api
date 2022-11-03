@@ -47,13 +47,13 @@ public class UserController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateUserRequest request){
         BaseResponse baseResponse = service.update(id, request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable Long id){
        service.delete(id);
     }
