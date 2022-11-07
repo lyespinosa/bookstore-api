@@ -26,10 +26,10 @@ public class UpdateBookRequest {
     @NotNull @NotBlank
     private String year;
 
-    @NotNull @NotBlank
+    @NotNull
     private Long authorId;
 
-    @NotNull @NotBlank
+    @NotNull
     private Long editorialId;
 
     private List<Long> genders;

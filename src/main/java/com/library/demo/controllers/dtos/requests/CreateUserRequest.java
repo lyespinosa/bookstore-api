@@ -21,10 +21,12 @@ public class CreateUserRequest {
     @NotNull @Email
     private String email;
 
-    @NotNull @NotBlank @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
+    @NotNull
+    @NotBlank @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$",
+                       message = "La constraseña debe tener entre 8 a 16 caracteres, contener una mayúscula y un numero")
     private String password;
 
-    @NotNull
+    @NotNull @Past
     private LocalDate birth;
 
     @Size(min = 10,max = 14)

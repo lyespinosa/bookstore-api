@@ -1,6 +1,7 @@
 package com.library.demo.entities.projections;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public interface OrderProjection {
     Long getId();
@@ -14,6 +15,10 @@ public interface OrderProjection {
     int getQuantity();
 
     BigDecimal getTotal();
+
+    LocalDate getOrderDate();
+
+    LocalDate getDeliveryDate();
 
     String getStatusName();
 

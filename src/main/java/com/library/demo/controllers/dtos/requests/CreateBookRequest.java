@@ -19,16 +19,16 @@ public class CreateBookRequest {
     @NotNull @NotBlank
     private String name;
 
-    @NotNull @NotBlank
+    @NotNull
     private BigDecimal price;
 
     @NotNull @NotBlank
     private String year;
 
-    @NotNull @NotBlank
+    @NotNull
     private Long authorId;
 
-    @NotNull @NotBlank
+    @NotNull
     private Long editorialId;
 
     private List<Long> genders;

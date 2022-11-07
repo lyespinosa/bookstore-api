@@ -19,18 +19,19 @@ public class UserController {
     private IUserService service;
 
     @GetMapping
-    public ResponseEntity<BaseResponse> listUsers(){
+    public ResponseEntity<BaseResponse> listUsers() {
         BaseResponse baseResponse = service.listUsers();
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<BaseResponse> getUserById(@PathVariable Long id){
+    public ResponseEntity<BaseResponse> getUserById(@PathVariable Long id) {
         BaseResponse baseResponse = service.getUserById(id);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @GetMapping("login")
+
+    @PostMapping("login")
     public ResponseEntity<BaseResponse> getUserByEmailAndPassword(@RequestBody @Valid AuthenticateUserRequest request){
         BaseResponse baseResponse = service.getUserByEmailAndPassword(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());

@@ -21,15 +21,18 @@ public class User {
 
     private String lastName;
 
+    @Column(unique = true)
     private String userName;
 
+    @Column(unique = true)
     private String email;
+
 
     private String password;
 
     private LocalDate birth;
 
-    @Column(length = 10)
+    @Column(length = 10, unique = true)
     private String phoneNumber;
 
     private String address;

@@ -17,6 +17,7 @@ public class BookController {
     @Autowired
     private IBookService service;
 
+
     @GetMapping
     public ResponseEntity<BaseResponse> listBooks(){
         BaseResponse baseResponse = service.listBooks();

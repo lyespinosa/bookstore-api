@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table (name = "orders")
@@ -28,6 +29,10 @@ public class Order {
     private int quantity;
 
     private BigDecimal total;
+
+    private LocalDate orderDate;
+
+    private LocalDate deliveryDate;
 
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")

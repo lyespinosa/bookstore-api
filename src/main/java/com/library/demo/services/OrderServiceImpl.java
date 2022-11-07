@@ -64,6 +64,18 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    public BaseResponse listAllOrdersByUserIdExceptShopping(Long id) {
+        List<OrderResponse> responses = repository.listAllOrdersByUserIdExceptShopping(id).
+                stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("All orders")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
     public BaseResponse getOrderById(Long id) {
         OrderResponse response = from(repository.getOrderById(id));
         return  BaseResponse.builder()
@@ -110,11 +122,16 @@ public class OrderServiceImpl implements IOrderService {
     private OrderResponse from(OrderProjection order){
         OrderResponse response = new OrderResponse();
         response.setId(order.getId());
+        response.setBookId(order.getBookId());
+        response.setUserId(order.getUserId());
+
         response.setPrice(order.getPrice());
         response.setQuantity(order.getQuantity());
         response.setTotal(order.getTotal());
-        response.setBookId(order.getBookId());
-        response.setUserId(order.getUserId());
+
+        response.setOrderDate(order.getOrderDate());
+        response.setDeliveryDate(order.getDeliveryDate());
+
         response.setStatus(order.getStatusName());
         return response;
     }
@@ -122,13 +139,15 @@ public class OrderServiceImpl implements IOrderService {
     private OrderResponse from(Order order){
         OrderResponse response = new OrderResponse();
         response.setId(order.getId());
-
         response.setBookId(order.getBook().getId());
         response.setUserId(order.getUser().getId());
-        response.setPrice(order.getPrice());
 
+        response.setPrice(order.getPrice());
         response.setQuantity(order.getQuantity());
         response.setTotal(order.getTotal());
+
+        response.setOrderDate(order.getOrderDate());
+        response.setDeliveryDate(order.getDeliveryDate());
 
         response.setStatus(order.getStatus().getName());
 
@@ -153,13 +172,18 @@ public class OrderServiceImpl implements IOrderService {
         BigDecimal quantityDecimal = new BigDecimal(request.getQuantity());
         order.setTotal( book.getPrice().multiply(quantityDecimal) );
 
+        order.setOrderDate(request.getOrderDate());
+        order.setDeliveryDate(request.getDeliveryDate());
+
         return order;
     }
 
     private Order update(UpdateOrderRequest request, Order order){
 
-        Status status = statusService.findStatusByName(order.getStatus().getName());
+        Status status = statusService.findStatusByName(request.getStatus());
         order.setStatus(status);
+
+        order.setDeliveryDate(request.getDeliveryDate());
 
         return order;
     }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Setter @Getter
 public class OrderResponse {
@@ -19,6 +20,10 @@ public class OrderResponse {
     private int quantity;
 
     private BigDecimal total;
+
+    private LocalDate orderDate;
+
+    private LocalDate deliveryDate;
 
     private String status;
 }

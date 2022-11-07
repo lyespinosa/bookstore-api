@@ -15,6 +15,9 @@ public interface IOrderService {
 
     BaseResponse listAllOrdersByUserIdFilterStatus(Long id, String statusName);
 
+    BaseResponse listAllOrdersByUserIdExceptShopping(Long id);
+
+
     BaseResponse getOrderById(Long id);
 
     BaseResponse create(CreateOrderRequest request);
