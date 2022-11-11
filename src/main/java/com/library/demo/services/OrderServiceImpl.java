@@ -114,6 +114,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void delete(Long id) {
+        findOrderById(id);
         repository.deleteById(id);
     }
 

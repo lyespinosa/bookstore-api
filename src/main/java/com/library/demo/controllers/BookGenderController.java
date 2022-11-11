@@ -19,6 +19,12 @@ public class BookGenderController {
     @Autowired
     private IBookGenderService service;
 
+    @GetMapping
+    public ResponseEntity<BaseResponse> listBookGenders(){
+        BaseResponse baseResponse = service.listBookGenders();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("genders/book/{id}")
     public List<GenderResponse> listAllGendersByBookId(@PathVariable Long id) {
         return service.listAllGendersByBookId(id);
@@ -36,7 +42,7 @@ public class BookGenderController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(@RequestBody Long id){
+    public void delete(@PathVariable Long id){
         service.delete(id);
     }
 

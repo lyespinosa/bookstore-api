@@ -17,7 +17,7 @@ public class StatusController {
     private IStatusService service;
 
     @GetMapping
-    public ResponseEntity<BaseResponse> listAuthors(){
+    public ResponseEntity<BaseResponse> listStatus(){
         BaseResponse baseResponse = service.listStatus();
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }

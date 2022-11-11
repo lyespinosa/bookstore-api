@@ -93,6 +93,7 @@ public class AuthorServiceImpl implements IAuthorService {
 
     @Override
     public void delete(Long id) {
+        findAuthorById(id);
         repository.deleteById(id);
 
     }

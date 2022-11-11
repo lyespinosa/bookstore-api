@@ -5,6 +5,7 @@ import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.BookGenderResponse;
 import com.library.demo.controllers.dtos.responses.BookResponse;
 import com.library.demo.controllers.dtos.responses.GenderResponse;
+import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Gender;
 import com.library.demo.entities.pivots.BookGender;
@@ -32,6 +33,22 @@ public class BookGenderServiceImpl implements IBookGenderService {
 
     @Autowired
     private IBookService bookService;
+
+    @Override
+    public BaseResponse listBookGenders() {
+        List<BookGenderResponse> responses = repository.findAll().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Books_Genders relations listed")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BookGender findBookGenderById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new BookException("BookGender relation not found "));
+    }
 
     @Override
     public List<GenderResponse> listAllGendersByBookId(Long id) {
@@ -64,6 +81,7 @@ public class BookGenderServiceImpl implements IBookGenderService {
 
     @Override
     public void delete(Long id) {
+        findBookGenderById(id);
         repository.deleteById(id);
     }
 

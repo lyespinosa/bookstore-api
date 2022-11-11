@@ -4,6 +4,7 @@ import com.library.demo.controllers.dtos.requests.CreateEditorialRequest;
 import com.library.demo.controllers.dtos.requests.UpdateEditorialRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.EditorialResponse;
+import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Editorial;
 import com.library.demo.repositories.IEditorialRepository;
 import com.library.demo.services.interfaces.IEditorialService;
@@ -23,7 +24,7 @@ public class EditorialServiceImpl implements IEditorialService {
 
     @Override
     public Editorial findEditorialById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("No se encontró"));
+        return repository.findById(id).orElseThrow(() -> new BookException("Editorial not found"));
     }
 
     @Override
@@ -93,6 +94,7 @@ public class EditorialServiceImpl implements IEditorialService {
 
     @Override
     public void delete(Long id) {
+        findEditorialById(id);
         repository.deleteById(id);
     }
 

@@ -82,6 +82,11 @@ public class StatusServiceImpl implements IStatusService {
                 .build();
     }
 
+    @Override
+    public void delete(Long id) {
+        findStatusById(id);
+        repository.deleteById(id);
+    }
 
 
     private StatusResponse from(Status status){

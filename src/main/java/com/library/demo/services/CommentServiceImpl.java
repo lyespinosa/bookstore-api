@@ -3,6 +3,7 @@ package com.library.demo.services;
 import com.library.demo.controllers.dtos.requests.CreateCommentRequest;
 import com.library.demo.controllers.dtos.responses.BaseResponse;
 import com.library.demo.controllers.dtos.responses.CommentResponse;
+import com.library.demo.controllers.exceptions.BookException;
 import com.library.demo.entities.Book;
 import com.library.demo.entities.Comment;
 import com.library.demo.entities.User;
@@ -31,6 +32,11 @@ public class CommentServiceImpl implements ICommentService {
     private IUserService userService;
 
     @Override
+    public Comment findCommentById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new BookException("Comment not found "));
+    }
+
+    @Override
     public BaseResponse listAllCommentsByBookId(Long id) {
         List<CommentResponse> response = repository.listAllCommentsByBookId(id).stream().map(this::from).collect(Collectors.toList());
         return BaseResponse.builder()
@@ -57,6 +63,7 @@ public class CommentServiceImpl implements ICommentService {
 
     @Override
     public void delete(Long id) {
+        findCommentById(id);
         repository.deleteById(id);
     }
 

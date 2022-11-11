@@ -113,6 +113,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void delete(Long id) {
+        findBookById(id);
         repository.deleteById(id);
     }
 
