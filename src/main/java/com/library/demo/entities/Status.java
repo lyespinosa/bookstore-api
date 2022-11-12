@@ -18,6 +18,6 @@ public class Status {
 
     private String name;
 
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private List<Order> orders;
 }

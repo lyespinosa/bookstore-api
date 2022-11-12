@@ -19,6 +19,6 @@ public class Gender {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "gender")
+    @OneToMany(mappedBy = "gender", cascade = CascadeType.ALL)
     private List<BookGender> bookGenders;
 }
