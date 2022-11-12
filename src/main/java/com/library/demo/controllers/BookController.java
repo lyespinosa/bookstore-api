@@ -17,6 +17,10 @@ public class BookController {
     @Autowired
     private IBookService service;
 
+    @GetMapping("healthy")
+    public String healthy(){
+        return "healthy";
+    }
 
     @GetMapping
     public ResponseEntity<BaseResponse> listBooks(){
@@ -52,4 +56,6 @@ public class BookController {
     public void delete(@PathVariable Long id){
         service.delete(id);
     }
+
+
 }
