@@ -18,7 +18,7 @@ public class CreateUserRequest {
     @NotNull @NotBlank
     private String userName;
 
-    @NotNull @Email
+    @Email
     private String email;
 
     @NotNull
