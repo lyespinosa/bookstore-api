@@ -1,3 +1,3 @@
 FROM openjdk:8
-ADD target/demo.jar demo.jar
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ADD target/bookstore-api.jar bookstore-api.jar
+ENTRYPOINT ["java", "-jar", "bookstore-api.jar"]
