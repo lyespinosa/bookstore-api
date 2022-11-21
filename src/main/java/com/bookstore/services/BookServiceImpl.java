@@ -82,11 +82,6 @@ public class BookServiceImpl implements IBookService {
     @Override
     public BaseResponse create(CreateBookRequest request) {
 
-        /*List<BookGenderRequest> requests = request.getGenders().stream().map(genderId -> from(genderId, response.getId())).collect(Collectors.toList());
-
-        Book finalBook = book;
-        requests.stream().map(bGRequest -> bookGenderService.create(bGRequest, finalBook)).collect(Collectors.toList());*/
-
         Book book = new Book();
         book = create(request, book);
         BookResponse response = from(repository.save(book));
@@ -103,6 +98,7 @@ public class BookServiceImpl implements IBookService {
     public BaseResponse update(Long id, UpdateBookRequest request) {
         Book book = findBookById(id);
         book = update(request, book);
+
         BookResponse response = from(repository.save(book));
         return BaseResponse.builder()
                 .data(response)
@@ -146,6 +142,7 @@ public class BookServiceImpl implements IBookService {
 
         response.setYear(book.getYear());
         response.setPrice(book.getPrice());
+        response.setDateAdded(book.getDateAdded());
         return response;
     }
 
@@ -157,7 +154,7 @@ public class BookServiceImpl implements IBookService {
         book.setName(request.getName());
         book.setPrice(request.getPrice());
         book.setYear(request.getYear());
-
+        book.setDateAdded(request.getDateAdded());
         Author author = authorService.findAuthorById(request.getAuthorId());
         book.setAuthor(author);
 
