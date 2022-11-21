@@ -116,6 +116,7 @@ public class UserServiceImpl implements IUserService {
         response.setBirth(user.getBirth());
         response.setPhoneNumber(user.getPhoneNumber());
         response.setAddress(user.getAddress());
+        response.setAdmin(user.getAdmin());
         return response;
     }
 
@@ -128,6 +129,7 @@ public class UserServiceImpl implements IUserService {
         user.setBirth(request.getBirth());
         user.setPhoneNumber(request.getPhoneNumber());
         user.setAddress(request.getAddress());
+        user.setAdmin(request.getAdmin());
         return user;
     }
 

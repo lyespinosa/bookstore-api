@@ -24,4 +24,5 @@ public class UserResponse {
 
     private String address;
 
+    private Boolean admin;
 }

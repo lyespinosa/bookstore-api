@@ -34,4 +34,6 @@ public class CreateUserRequest {
 
 
     private String address;
+
+    private Boolean admin;
 }

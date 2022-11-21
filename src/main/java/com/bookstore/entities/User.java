@@ -36,6 +36,8 @@ public class User {
 
     private String address;
 
+    private Boolean admin;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
