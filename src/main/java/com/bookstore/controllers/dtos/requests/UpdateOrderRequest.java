@@ -13,6 +13,9 @@ public class UpdateOrderRequest {
     @NotNull @NotBlank
     private String status;
 
+    @NotNull @PastOrPresent
+    private LocalDate orderDate;
+
     @NotNull @FutureOrPresent
     private LocalDate deliveryDate;
 

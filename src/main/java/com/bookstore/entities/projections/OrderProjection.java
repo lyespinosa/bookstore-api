@@ -16,9 +16,9 @@ public interface OrderProjection {
 
     BigDecimal getTotal();
 
-    LocalDate getOrderDate();
+    LocalDate getOrder_date();
 
-    LocalDate getDeliveryDate();
+    LocalDate getDelivery_date();
 
     String getStatusName();
 

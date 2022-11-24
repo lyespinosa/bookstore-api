@@ -132,10 +132,11 @@ public class OrderServiceImpl implements IOrderService {
 
         response.setPrice(order.getPrice());
         response.setQuantity(order.getQuantity());
+
         response.setTotal(order.getTotal());
 
-        response.setOrderDate(order.getOrderDate());
-        response.setDeliveryDate(order.getDeliveryDate());
+        response.setOrderDate(order.getOrder_date());
+        response.setDeliveryDate(order.getDelivery_date());
 
         response.setStatus(order.getStatusName());
         return response;
@@ -188,6 +189,7 @@ public class OrderServiceImpl implements IOrderService {
         Status status = statusService.findStatusByName(request.getStatus());
         order.setStatus(status);
 
+        order.setOrderDate(request.getOrderDate());
         order.setDeliveryDate(request.getDeliveryDate());
 
         return order;

@@ -20,10 +20,10 @@ public class CreateOrderRequest {
     @Positive
     private int quantity;
 
-    @NotNull @PastOrPresent
+    @PastOrPresent
     private LocalDate orderDate;
 
-    @NotNull @FutureOrPresent
+    @FutureOrPresent
     private LocalDate deliveryDate;
 
     @NotNull @NotBlank
