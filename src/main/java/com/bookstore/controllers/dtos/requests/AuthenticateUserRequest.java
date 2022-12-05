@@ -16,6 +16,5 @@ public class AuthenticateUserRequest {
     private String email;
 
     @NotNull @NotBlank
-    @Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
     private String password;
 }

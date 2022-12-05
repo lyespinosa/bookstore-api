@@ -134,7 +134,22 @@ public class UserServiceImpl implements IUserService {
     }
 
     private User update(UpdateUserRequest request, User user){
-        user.setName(request.getName());
+        if(request.getName() != null){
+            user.setName(request.getName());}
+        if(request.getLastName() != null){
+            user.setLastName(request.getLastName());}
+        if(request.getUserName() != null){
+            user.setUserName(request.getUserName());}
+        if(request.getEmail() != null){
+            user.setEmail(request.getEmail());}
+        if(request.getPassword() != null){
+            user.setPassword(request.getPassword());}
+        if(request.getBirth() != null){
+            user.setBirth(request.getBirth());}
+        if(request.getPhoneNumber() != null){
+            user.setPhoneNumber(request.getPhoneNumber());}
+        if(request.getAddress() != null){
+            user.setAddress(request.getAddress());}
         return user;
     }
 }
