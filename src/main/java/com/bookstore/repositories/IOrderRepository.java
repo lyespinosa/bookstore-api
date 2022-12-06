@@ -39,5 +39,15 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
             "where orders.id = :id",nativeQuery = true)
     OrderProjection getOrderById(Long id);
 
+    @Query(value = "select orders.*, users.id as userId, books.id as bookId, status.name as statusName from orders " +
+            "inner join users on orders.user_id = users.id " +
+            "inner join books on orders.book_id = books.id " +
+            "inner join status on orders.status_id = status.id " +
+            "where orders.user_id = :idUser and orders.status_id = 1 and orders.book_id = :idBook",nativeQuery = true)
+    OrderProjection existOneBookInShoppingToThisUser(Long idUser, Long idBook);
+
+
+
+
 
 }

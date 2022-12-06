@@ -92,9 +92,19 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public BaseResponse create(CreateOrderRequest request) {
-        Order order = new Order();
-        order = create(request, order);
-        OrderResponse response = from(repository.save(order));
+
+        OrderResponse response = new OrderResponse();
+
+        OrderProjection projection = existOneBookInShoppingToThisUser( request.getUserId(), request.getBookId() );
+
+        if(projection != null){
+             response = addOneBookToExistingOrder(projection.getId(), request.getQuantity());
+        }
+        else {
+            Order order = new Order();
+            order = create(request, order);
+             response = from(repository.save(order));
+        }
         return BaseResponse.builder()
                 .data(response)
                 .message("Order created")
@@ -123,6 +133,17 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
+    private OrderProjection existOneBookInShoppingToThisUser(Long idUser, Long idBook){
+        return repository.existOneBookInShoppingToThisUser(idUser, idBook);
+    }
+
+    private OrderResponse addOneBookToExistingOrder(Long id, int quantity){
+        Order order = findOrderById(id);
+        order.setQuantity(order.getQuantity() + quantity);
+        OrderResponse response = from(repository.save(order));
+        return response;
+
+    }
 
     private OrderResponse from(OrderProjection order){
         OrderResponse response = new OrderResponse();
