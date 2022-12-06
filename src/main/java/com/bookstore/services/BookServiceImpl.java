@@ -58,6 +58,39 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
+    public BaseResponse listRandBooks() {
+        List<BookResponse> response = repository.listRandBooks().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("Books listed in random order")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse listNewBooks() {
+        List<BookResponse> response = repository.listNewBooks().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("Book news listed")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse listOldBooks() {
+        List<BookResponse> response = repository.listBooks().stream().map(this::from).collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("Old books listed")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
     public BaseResponse getBookById(Long id) {
         BookResponse response = from(findBookById(id));
         return BaseResponse.builder()

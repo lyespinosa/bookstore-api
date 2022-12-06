@@ -51,19 +51,33 @@ public class BookGenderServiceImpl implements IBookGenderService {
     }
 
     @Override
-    public List<GenderResponse> listAllGendersByBookId(Long id) {
+    public BaseResponse listAllGendersByBookId(Long id) {
         List<GenderProjection> genders = repository.listAllGendersByBookId(id);
-        return genders.stream()
+        genders.stream()
                 .map(this::from)
                 .collect(Collectors.toList());
+
+        return BaseResponse.builder()
+                .data(genders)
+                .message("Genders of a book")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 
     @Override
-    public List<BookResponse> listAllBooksByGenderId(Long id) {
+    public BaseResponse listAllBooksByGenderId(Long id) {
         List<BookProjection> books = repository.listAllBooksByGenderId(id);
-        return books.stream()
+        books.stream()
                 .map(this::from)
                 .collect(Collectors.toList());
+
+        return BaseResponse.builder()
+                .data(books)
+                .message("Genders of a book")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 
     @Override

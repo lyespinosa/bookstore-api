@@ -135,7 +135,7 @@ public class UserServiceImpl implements IUserService {
 
     private User update(UpdateUserRequest request, User user){
         if(request.getName() != null){
-            user.setName(request.getName());}
+                user.setName(request.getName());}
         if(request.getLastName() != null){
             user.setLastName(request.getLastName());}
         if(request.getUserName() != null){

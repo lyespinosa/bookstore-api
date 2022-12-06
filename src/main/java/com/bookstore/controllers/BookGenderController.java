@@ -26,13 +26,15 @@ public class BookGenderController {
     }
 
     @GetMapping("genders/book/{id}")
-    public List<GenderResponse> listAllGendersByBookId(@PathVariable Long id) {
-        return service.listAllGendersByBookId(id);
+    public ResponseEntity<BaseResponse> listAllGendersByBookId(@PathVariable Long id) {
+        BaseResponse baseResponse = service.listAllGendersByBookId(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping("books/gender/{id}")
-    public List<BookResponse> listAllBooksByGenderId(@PathVariable Long id) {
-        return service.listAllBooksByGenderId(id);
+    public ResponseEntity<BaseResponse> listAllBooksByGenderId(@PathVariable Long id) {
+        BaseResponse baseResponse = service.listAllBooksByGenderId(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PostMapping

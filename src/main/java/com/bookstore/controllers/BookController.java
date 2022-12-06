@@ -28,6 +28,24 @@ public class BookController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @GetMapping("random")
+    public ResponseEntity<BaseResponse> listRandBooks(){
+        BaseResponse baseResponse = service.listRandBooks();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+    @GetMapping("new")
+    public ResponseEntity<BaseResponse> listNewBooks(){
+        BaseResponse baseResponse = service.listNewBooks();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+    @GetMapping("old")
+    public ResponseEntity<BaseResponse> listOldBooks(){
+        BaseResponse baseResponse = service.listOldBooks();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<BaseResponse> getBookById(@PathVariable Long id){
         BaseResponse baseResponse = service.getBookById(id);

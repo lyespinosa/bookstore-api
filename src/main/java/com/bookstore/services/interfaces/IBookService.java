@@ -17,6 +17,12 @@ public interface IBookService {
 
     BaseResponse listBooks();
 
+    BaseResponse listRandBooks();
+
+    BaseResponse listNewBooks();
+
+    BaseResponse listOldBooks();
+
     BaseResponse getBookById(Long id);
 
     BaseResponse getBookByName(String name);

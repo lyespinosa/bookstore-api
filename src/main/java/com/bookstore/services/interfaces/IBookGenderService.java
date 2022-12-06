@@ -14,9 +14,9 @@ public interface IBookGenderService {
 
     BookGender findBookGenderById(Long id);
 
-    List<GenderResponse> listAllGendersByBookId(Long id);
+    BaseResponse listAllGendersByBookId(Long id);
 
-    List<BookResponse> listAllBooksByGenderId(Long id);
+    BaseResponse listAllBooksByGenderId(Long id);
 
     BaseResponse create(CreateBookGenderRequest request);
 
