@@ -6,16 +6,15 @@ import com.bookstore.controllers.exceptions.BookException;
 import com.bookstore.entities.Book;
 import com.bookstore.entities.Order;
 import com.bookstore.entities.Status;
-import com.bookstore.entities.User;
 import com.bookstore.entities.projections.OrderProjection;
 import com.bookstore.repositories.IOrderRepository;
 import com.bookstore.controllers.dtos.requests.CreateOrderRequest;
 import com.bookstore.controllers.dtos.requests.UpdateOrderRequest;
-import com.bookstore.entities.*;
+import com.bookstore.segurity.entity.User;
+import com.bookstore.segurity.service.UserService;
 import com.bookstore.services.interfaces.IBookService;
 import com.bookstore.services.interfaces.IOrderService;
 import com.bookstore.services.interfaces.IStatusService;
-import com.bookstore.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class OrderServiceImpl implements IOrderService {
     private IBookService bookService;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Autowired
     private IStatusService statusService;

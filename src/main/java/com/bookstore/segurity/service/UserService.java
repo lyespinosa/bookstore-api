@@ -1,26 +1,50 @@
-package com.bookstore.services;
+package com.bookstore.segurity.service;
 
-import com.bookstore.controllers.dtos.responses.BaseResponse;
-import com.bookstore.controllers.dtos.responses.UserResponse;
-import com.bookstore.controllers.exceptions.BookException;
-import com.bookstore.entities.User;
-import com.bookstore.repositories.IUserRepository;
 import com.bookstore.controllers.dtos.requests.AuthenticateUserRequest;
 import com.bookstore.controllers.dtos.requests.CreateUserRequest;
 import com.bookstore.controllers.dtos.requests.UpdateUserRequest;
-import com.bookstore.services.interfaces.IUserService;
+import com.bookstore.controllers.dtos.responses.BaseResponse;
+import com.bookstore.controllers.dtos.responses.UserResponse;
+import com.bookstore.controllers.exceptions.BookException;
+import com.bookstore.segurity.entity.User;
+import com.bookstore.segurity.repository.UserRepository;
+import com.bookstore.segurity.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements IUserService {
+@Transactional
+public class UserService implements IUserService {
 
     @Autowired
-    private IUserRepository repository;
+    UserRepository repository;
+
+    public Optional<User> getByUserName(String userName){
+        return repository.findByUserName(userName);
+    }
+
+    public User getNOByUserName(String userName){
+        return repository.findNOByUserName(userName);
+    }
+
+
+    public boolean existsByUserName(String userName){
+        return repository.existsByUserName(userName);
+    }
+
+    public boolean existsByEmail(String email){
+        return repository.existsByEmail(email);
+    }
+
+    public void save(User user){
+        repository.save(user);
+    }
 
     @Override
     public User findUserById(Long id) {
@@ -49,6 +73,17 @@ public class UserServiceImpl implements IUserService {
         return BaseResponse.builder()
                 .data(response)
                 .message("User by Id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse getUserByUserName(String userName) {
+        UserResponse response = from(getNOByUserName(userName));
+        return BaseResponse.builder()
+                .data(response)
+                .message("User by userName")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
@@ -135,7 +170,7 @@ public class UserServiceImpl implements IUserService {
 
     private User update(UpdateUserRequest request, User user){
         if(request.getName() != null){
-                user.setName(request.getName());}
+            user.setName(request.getName());}
         if(request.getLastName() != null){
             user.setLastName(request.getLastName());}
         if(request.getUserName() != null){
@@ -152,4 +187,5 @@ public class UserServiceImpl implements IUserService {
             user.setAddress(request.getAddress());}
         return user;
     }
+
 }

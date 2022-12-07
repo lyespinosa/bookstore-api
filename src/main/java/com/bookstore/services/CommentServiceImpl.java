@@ -5,13 +5,13 @@ import com.bookstore.controllers.dtos.responses.CommentResponse;
 import com.bookstore.controllers.exceptions.BookException;
 import com.bookstore.entities.Book;
 import com.bookstore.entities.Comment;
-import com.bookstore.entities.User;
 import com.bookstore.entities.projections.CommentProjection;
 import com.bookstore.repositories.ICommentRepository;
 import com.bookstore.controllers.dtos.requests.CreateCommentRequest;
+import com.bookstore.segurity.entity.User;
+import com.bookstore.segurity.service.UserService;
 import com.bookstore.services.interfaces.IBookService;
 import com.bookstore.services.interfaces.ICommentService;
-import com.bookstore.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class CommentServiceImpl implements ICommentService {
     private IBookService bookService;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Override
     public Comment findCommentById(Long id) {

@@ -1,5 +1,6 @@
 package com.bookstore.entities;
 
+import com.bookstore.segurity.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
